@@ -1,16 +1,78 @@
-# provider_sample
+# flutter_provider
 
-A new Flutter project.
+Đề tài: Flutter working with api and state management of state full widget
 
-## Getting Started
+## Thư viện sử dụng:
 
-This project is a starting point for a Flutter application.
+```yaml
 
-A few resources to get you started if this is your first Flutter project:
+dependencies:
+  retrofit: ^3.0.1+1 // gọi api
+  logger: ^1.1.0 // log response
+  provider: ^6.0.2 // quản lý state bằng provider
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+dev_dependencies:
+  retrofit_generator: ^4.0.1 // gen file api service
+  build_runner: ^2.1.10 // hỗ trợ gen file
+  json_serializable: ^6.1.6  // gen model parse json
+  json_annotation: ^4.4.0 // gắn annotation để nhận biết model cần gen 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+
+## Hướng dẫn chạy project
+
+Tải các thử viện có trong pubspec.yml:
+
+```sh
+# dart
+pub get
+
+# flutter 
+flutter pub get
+```
+
+Gen các file *.g.dart bằng build_runner:
+
+```sh
+# dart
+pub run build_runner build
+
+# flutter 
+flutter pub run build_runner build
+```
+
+=> Bật máy ảo lên và chạy
+
+## Hướng dẫn gen file
+
+Nếu sửa các file có dòng bên dưới thì gen lại bằng build_runner:
+
+`part '*.g.dart'`
+
+```sh
+# dart
+pub run build_runner build --delete-conflicting-outputs
+
+# flutter 
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+## Demo
+
+![](demo.gif)
+
+## Directory structure
+
+```
+|-- web                <- Thư mục code web
+|-- tests              <- Unit tests
+|-- android            <- Thư mục android
+|-- ios                <- Thư mục ios
+|-- lib                <- Project data
+|   |-- models         <- Nơi chứa các model
+|   |-- network        <- Làm việc với api
+|   |-- pages          <- Chứa các màn hình
+|   |-- provider       <- Quản lý state với provider
+|-- pubspec.yml        <- Nơi lưu trữ packege thư viện
+|-- README.md          <- README của dự án
+```
