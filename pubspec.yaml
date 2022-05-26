@@ -37,6 +37,7 @@ dependencies:
   retrofit: ^3.0.1+1
   logger: ^1.1.0
   provider: ^6.0.2
+  sqflite: ^2.0.2
 
 dev_dependencies:
   flutter_test:

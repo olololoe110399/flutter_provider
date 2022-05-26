@@ -30,6 +30,14 @@ class _UserDetailPageState extends State<UserDetailPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(store.user?.name ?? 'User Detail Page'),
+        actions: [
+          IconButton(
+            onPressed: () => store.toggleFavorite(),
+            icon: Icon(
+              store.isFavorite ? Icons.favorite : Icons.favorite_border,
+            ),
+          ),
+        ],
       ),
       body: store.loading
           ? const Center(

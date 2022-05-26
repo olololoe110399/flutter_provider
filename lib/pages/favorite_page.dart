@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_sample/pages/favorite_page.dart';
 import 'package:provider_sample/pages/user_detail_page.dart';
 import 'package:provider_sample/providers/store.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class FavoritePage extends StatefulWidget {
+  const FavoritePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<FavoritePage> createState() => _FavoritePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _FavoritePageState extends State<FavoritePage> {
   @override
   void initState() {
     super.initState();
     final store = Provider.of<Store>(context, listen: false);
-    store.getUsers();
+    store.getFavorites();
   }
 
   @override
@@ -32,52 +31,39 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    _handleNavigateFavorites() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const FavoritePage(),
-        ),
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: const Text('Favorite Page'),
       ),
       body: store.loading
           ? const Center(
               child: Text("Loading..."),
             )
           : RefreshIndicator(
-              onRefresh: () => store.onRefresh(),
+              onRefresh: () => store.onRefreshFavorite(),
               child: ListView.builder(
                 shrinkWrap: true,
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
                 ),
-                itemCount: store.users.length,
+                itemCount: store.items.length,
                 itemBuilder: (BuildContext context, int index) => ListTile(
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(
                       'https://i.pravatar.cc/300?$index',
                     ),
                   ),
-                  title: Text(store.users[index].name ?? ''),
-                  subtitle: Text(store.users[index].email ?? ''),
-                  onTap: () => store.users[index].id != null
+                  title: Text(store.items[index].name ?? ''),
+                  subtitle: Text(store.items[index].email ?? ''),
+                  onTap: () => store.items[index].id != null
                       ? _handleNavigateUserDetail(
-                          store.users[index].id!,
+                          store.items[index].id!,
                           'https://i.pravatar.cc/300?$index',
                         )
                       : null,
                 ),
               ),
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _handleNavigateFavorites,
-        child: const Icon(Icons.favorite),
-      ),
     );
   }
 }
